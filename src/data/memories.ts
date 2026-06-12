@@ -23,12 +23,14 @@ export type TimelineSection = {
 export type ParallaxPhoto = {
   src: string
   caption?: string
+  emoji?: string
 }
 
 export type ParallaxSection = {
   type: 'parallax'
   id: string
   title: string
+  titleStyle?: 'section' | 'highlight'
   photos: ParallaxPhoto[]
 }
 
@@ -55,38 +57,43 @@ export type MemorySection =
   | TextParallaxSection
   | FinaleSection
 
-const parallaxCaptions = [
-  'Это мы с масочками лежим довольные.',
-  'А это мы в кертис впервые пришли компанией.',
-  'Это мы тоже в кертис любим друг друга.',
-  'А это наш первый новый год совместный, мы тогда шикарный стол накрыли)',
-  'А это мы в медузу пришли)',
-  'Ой, а тут наш первый курорт горнолыжный)))',
-  'А это мы в бар пришли)',
-  'А тут мы впервые пришли в клуб.',
-  'Такс, это снова в баре любим друг друга :*/',
-  'А тут мы впервые посетили заведение Партизан. Было весело в этот день)',
-  'Тут мы на набережной прогуливаемся мило после Партизана)',
-  'А это мы пришли в Ред, отведать техаской кухни.',
-  'А тут мы прогуливаемся в парке.',
-  'Это без комментариев просто :D',
-  'Снова прогуливаемся)',
-  'А это наша первая поездка в Дагестан. Ох уж эти страшные, но красивые виды)',
-  'Такс, а тут мы в Питере в 10D кинотеатре.',
-  'И это мы тоже в Питере)',
-  'И это тоже Питер пришли в бар)',
-  'А тут мы мило сфоткались напротив елки',
-  'Отлично отдохнули в Сочи на Красной поляне и у моих родителей.',
-  'А это мы поднялись на гору в Красной поляне. Ты моя самая лучшая чудо-девушка!',
+const parallaxEntries: { caption: string; emoji: string }[] = [
+  { emoji: '😴', caption: 'Это мы с масочками лежим довольные.' },
+  { emoji: '🎉', caption: 'А это мы в кертис впервые пришли компанией.' },
+  { emoji: '💕', caption: 'Это мы тоже в кертис любим друг друга.' },
+  { emoji: '🎄', caption: 'А это наш первый новый год совместный, мы тогда шикарный стол накрыли)' },
+  { emoji: '🪩', caption: 'А это мы в медузу пришли)' },
+  { emoji: '🎿', caption: 'Ой, а тут наш первый курорт горнолыжный)))' },
+  { emoji: '🍸', caption: 'А это мы в бар пришли)' },
+  { emoji: '🪩', caption: 'А тут мы впервые пришли в клуб.' },
+  { emoji: '💋', caption: 'Такс, это снова в баре любим друг друга :*/' },
+  { emoji: '🥳', caption: 'А тут мы впервые посетили заведение Партизан. Было весело в этот день)' },
+  { emoji: '🌊', caption: 'Тут мы на набережной прогуливаемся мило после Партизана)' },
+  { emoji: '🌮', caption: 'А это мы пришли в Ред, отведать техаской кухни.' },
+  { emoji: '🌳', caption: 'А тут мы прогуливаемся в парке.' },
+  { emoji: '😂', caption: 'Это без комментариев просто :D' },
+  { emoji: '🚶‍♀️', caption: 'Снова прогуливаемся)' },
+  { emoji: '🏔️', caption: 'А это наша первая поездка в Дагестан. Ох уж эти страшные, но красивые виды)' },
+  { emoji: '🎬', caption: 'Такс, а тут мы в Питере в 10D кинотеатре.' },
+  { emoji: '🏙️', caption: 'И это мы тоже в Питере)' },
+  { emoji: '🍷', caption: 'И это тоже Питер пришли в бар)' },
+  { emoji: '🎄', caption: 'А тут мы мило сфоткались напротив елки' },
+  { emoji: '☀️', caption: 'Отлично отдохнули в Сочи на Красной поляне и у моих родителей.' },
+  { emoji: '🏔️', caption: 'А это мы поднялись на гору в Красной поляне.' },
 ]
 
-const parallaxPhotos: ParallaxPhoto[] = [
-  ...parallaxCaptions.map((caption, i) => {
-    const num = String(i + 1).padStart(2, '0')
-    return { src: `/assets/memories/${num}.jpg`, caption }
-  }),
-  { src: '/assets/memories/apology-1.jpg' },
-  { src: '/assets/memories/apology-2.jpg' },
+const parallaxPhotos: ParallaxPhoto[] = parallaxEntries.map((entry, i) => {
+  const num = String(i + 1).padStart(2, '0')
+  return {
+    src: `/assets/memories/${num}.jpg`,
+    caption: entry.caption,
+    emoji: entry.emoji,
+  }
+})
+
+const apologyPhotos: ParallaxPhoto[] = [
+  { src: '/assets/memories/apology-1.jpg', emoji: '🥺' },
+  { src: '/assets/memories/apology-2.jpg', emoji: '💕' },
 ]
 
 const loveTextItems = [
@@ -149,6 +156,13 @@ export const memorySections: MemorySection[] = [
     id: 'parallax',
     title: 'Наши моменты',
     photos: parallaxPhotos,
+  },
+  {
+    type: 'parallax',
+    id: 'apologyPhotos',
+    title: 'Ты моя самая лучшая чудо-девушка!',
+    titleStyle: 'highlight',
+    photos: apologyPhotos,
   },
   {
     type: 'textParallax',

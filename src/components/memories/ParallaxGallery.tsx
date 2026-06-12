@@ -5,13 +5,21 @@ import {
   useParallaxSlide,
 } from '../../hooks/useParallaxSlide'
 
+const TITLE_CLASS = {
+  section: 'text-4xl',
+  highlight: 'text-2xl sm:text-3xl',
+} as const
+
 export function ParallaxGallery({ section }: { section: ParallaxSection }) {
   const photos = section.photos
+  const titleStyle = section.titleStyle ?? 'section'
 
   return (
     <section className="relative">
       <div className="flex h-[20vh] items-end justify-center px-6 pb-6">
-        <h2 className="font-display text-center text-4xl font-bold gradient-text">
+        <h2
+          className={`font-display text-center font-bold gradient-text ${TITLE_CLASS[titleStyle]}`}
+        >
           {section.title}
         </h2>
       </div>
@@ -62,13 +70,22 @@ function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
           </div>
 
-          {photo.caption && (
-            <div
-              className="mt-3 rounded-xl border border-white/15 bg-[#1a0a12]/90 px-4 py-3 shadow-lg shadow-black/30 backdrop-blur-sm"
-            >
-              <p className="text-sm leading-relaxed text-white/85 sm:text-base">
-                {photo.caption}
-              </p>
+          {(photo.emoji || photo.caption) && (
+            <div className="mt-3">
+              {photo.emoji && (
+                <p className="mb-2 text-center text-2xl sm:text-3xl" aria-hidden>
+                  {photo.emoji}
+                </p>
+              )}
+              {photo.caption && (
+                <div
+                  className="rounded-xl border border-white/15 bg-[#1a0a12]/90 px-4 py-3 shadow-lg shadow-black/30 backdrop-blur-sm"
+                >
+                  <p className="text-sm leading-relaxed text-white/85 sm:text-base">
+                    {photo.caption}
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </motion.div>
