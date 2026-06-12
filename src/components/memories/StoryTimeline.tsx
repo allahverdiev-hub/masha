@@ -1,65 +1,86 @@
 import { motion } from 'framer-motion'
-import type { TimelineSection } from '../../data/memories'
+import type { TimelineItem, TimelineSection } from '../../data/memories'
+import {
+  PARALLAX_SLIDE_HEIGHT_VH,
+  useParallaxSlide,
+} from '../../hooks/useParallaxSlide'
 
 export function StoryTimeline({ section }: { section: TimelineSection }) {
   return (
-    <section className="px-6 py-20 safe-x">
-      <motion.h2
-        className="font-display mb-12 text-center text-4xl font-bold gradient-text"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.6 }}
-      >
-        {section.title}
-      </motion.h2>
-
-      <div className="relative mx-auto max-w-md">
-        <div className="absolute bottom-0 left-[11px] top-0 w-0.5 bg-gradient-to-b from-[#ff6b35] via-[#ff4d8d] to-[#7b2cbf]" />
-
-        {section.items.map((item, i) => {
-          const isSub = item.variant === 'sub'
-
-          return (
-            <motion.div
-              key={item.title}
-              className={`relative mb-10 last:mb-0 ${isSub ? 'pl-14' : 'pl-10'}`}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              {isSub ? (
-                <div className="absolute left-3 top-1 text-sm">💕</div>
-              ) : (
-                <div className="absolute left-0 top-1 h-6 w-6 rounded-full gradient-mamba shadow-lg shadow-[#ff4d8d]/30" />
-              )}
-
-              <div
-                className={
-                  isSub
-                    ? 'rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm'
-                    : undefined
-                }
-              >
-                {item.date && (
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#ff4d8d]">
-                    {item.date}
-                  </p>
-                )}
-                <h3
-                  className={`font-bold text-white ${isSub ? 'text-lg' : 'mt-1 text-xl'}`}
-                >
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/65">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          )
-        })}
+    <section className="relative">
+      <div className="flex h-[20vh] items-end justify-center px-6 pb-6">
+        <h2 className="font-display text-center text-4xl font-bold gradient-text">
+          {section.title}
+        </h2>
       </div>
+
+      {section.items.map((item, index) => (
+        <TimelineSlide key={item.title} item={item} index={index} />
+      ))}
     </section>
+  )
+}
+
+function TimelineSlide({ item, index }: { item: TimelineItem; index: number }) {
+  const { ref, y, scale, opacity, rotate } = useParallaxSlide(index)
+  const isSub = item.variant === 'sub'
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      style={{ height: `${PARALLAX_SLIDE_HEIGHT_VH}vh` }}
+    >
+      <div
+        className="sticky top-0 flex h-[100dvh] items-center justify-center px-6 py-16"
+        style={{ zIndex: index + 1 }}
+      >
+        <motion.div
+          className="relative w-full max-w-sm will-change-transform"
+          style={{ y, scale, opacity, rotate }}
+        >
+          <div
+            className={`rounded-2xl shadow-2xl shadow-black/50 ${
+              isSub
+                ? 'border border-white/15 bg-white/8 p-5 backdrop-blur-sm'
+                : 'shimmer-border-frame p-[2px]'
+            }`}
+            style={
+              isSub
+                ? undefined
+                : {
+                    boxShadow:
+                      '0 24px 48px rgba(0,0,0,0.4), 0 0 32px rgba(255,77,141,0.2)',
+                  }
+            }
+          >
+            <div
+              className={
+                isSub
+                  ? undefined
+                  : 'rounded-[14px] bg-[#1a0a12]/95 px-6 py-6 backdrop-blur-sm'
+              }
+            >
+              {isSub && (
+                <span className="mb-2 block text-lg" aria-hidden>💕</span>
+              )}
+              {item.date && (
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#ff4d8d]">
+                  {item.date}
+                </p>
+              )}
+              <h3
+                className={`font-bold text-white ${isSub ? 'text-lg' : 'mt-1 text-2xl'}`}
+              >
+                {item.title}
+              </h3>
+              <p className="mt-3 text-base leading-relaxed text-white/70">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
   )
 }

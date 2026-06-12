@@ -41,6 +41,9 @@ body {
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 html.memories-mode {

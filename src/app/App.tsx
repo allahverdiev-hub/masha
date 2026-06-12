@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { useAppPhase } from '../hooks/useAppPhase'
 import { useBackgroundMusic } from '../hooks/useBackgroundMusic'
@@ -6,9 +7,24 @@ import { RevealPhase } from './phases/RevealPhase'
 import { TransitionPhase } from './phases/TransitionPhase'
 import { MemoriesPhase } from './phases/MemoriesPhase'
 
+function blockCopy(e: Event) {
+  e.preventDefault()
+}
+
 export default function App() {
   const { phase, goToReveal, goToTransition, goToMemories } = useAppPhase()
   useBackgroundMusic()
+
+  useEffect(() => {
+    document.addEventListener('copy', blockCopy)
+    document.addEventListener('cut', blockCopy)
+    document.addEventListener('contextmenu', blockCopy)
+    return () => {
+      document.removeEventListener('copy', blockCopy)
+      document.removeEventListener('cut', blockCopy)
+      document.removeEventListener('contextmenu', blockCopy)
+    }
+  }, [])
 
   return (
     <div className="min-h-dvh w-full">
