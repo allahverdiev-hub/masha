@@ -3,10 +3,16 @@ import { backgroundMusic } from '../data/siteConfig'
 
 export function useBackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const unmutedRef = useRef(false)
 
-  const startMusic = useCallback(async () => {
+  const tryPlay = useCallback(async (unmute = false) => {
     const audio = audioRef.current
     if (!audio) return false
+
+    if (unmute) {
+      audio.muted = false
+      unmutedRef.current = true
+    }
 
     try {
       audio.volume = backgroundMusic.volume
@@ -22,26 +28,36 @@ export function useBackgroundMusic() {
     audio.loop = true
     audio.volume = backgroundMusic.volume
     audio.preload = 'auto'
+    audio.muted = true
     audioRef.current = audio
 
-    void startMusic()
+    audio.load()
 
-    const onReady = () => {
-      if (audio.paused) void startMusic()
+    const onCanPlay = () => {
+      if (!unmutedRef.current) void tryPlay(false)
     }
 
-    window.addEventListener('load', onReady)
-    document.addEventListener('pointerdown', onReady, { passive: true })
-    document.addEventListener('touchstart', onReady, { passive: true })
-    document.addEventListener('click', onReady, { passive: true })
+    audio.addEventListener('canplaythrough', onCanPlay)
+
+    void tryPlay(false)
+
+    const onInteract = () => {
+      void tryPlay(true)
+    }
+
+    window.addEventListener('load', onCanPlay)
+    document.addEventListener('pointerdown', onInteract, { passive: true })
+    document.addEventListener('touchstart', onInteract, { passive: true })
+    document.addEventListener('click', onInteract, { passive: true })
 
     return () => {
-      window.removeEventListener('load', onReady)
-      document.removeEventListener('pointerdown', onReady)
-      document.removeEventListener('touchstart', onReady)
-      document.removeEventListener('click', onReady)
+      audio.removeEventListener('canplaythrough', onCanPlay)
+      window.removeEventListener('load', onCanPlay)
+      document.removeEventListener('pointerdown', onInteract)
+      document.removeEventListener('touchstart', onInteract)
+      document.removeEventListener('click', onInteract)
       audio.pause()
       audioRef.current = null
     }
-  }, [startMusic])
+  }, [tryPlay])
 }
