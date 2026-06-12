@@ -16,7 +16,7 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
   }, [])
 
   useEffect(() => {
-    profiles.slice(0, 2).forEach((p) => {
+    profiles.forEach((p) => {
       const img = new Image()
       img.src = p.photo
     })
@@ -45,7 +45,7 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
           onNope={() => stackRef.current?.nope()}
           onLike={() => stackRef.current?.like()}
           showLike={onHerCard}
-          disableNope={onHerCard}
+          showNope={!onHerCard}
         />
         <p className="mt-4 text-center text-xs text-white/40">
           {onHerCard
