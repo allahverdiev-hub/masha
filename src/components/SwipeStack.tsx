@@ -65,26 +65,34 @@ export const SwipeStack = forwardRef<SwipeStackHandle, SwipeStackProps>(
       onIndexChange?.(index)
     }, [index, onIndexChange])
 
+    const snapBack = useCallback(() => {
+      animate(x, 0, { type: 'spring', stiffness: 400, damping: 30 })
+    }, [x])
+
     const flyOut = useCallback(
       async (direction: 'left' | 'right') => {
         if (!current || disabled || exiting) return
 
-        if (isHer && direction === 'right') {
-          onHerFound()
+        if (isHer) {
+          if (direction === 'right') {
+            onHerFound()
+          }
           return
         }
 
-        if (isHer) return
+        if (direction === 'right') {
+          snapBack()
+          return
+        }
 
         setExiting(true)
-        const targetX = direction === 'right' ? 500 : -500
-        await animate(x, targetX, { duration: 0.35, ease: 'easeIn' })
+        await animate(x, -500, { duration: 0.35, ease: 'easeIn' })
 
         setExiting(false)
         x.set(0)
         setIndex((i) => i + 1)
       },
-      [current, disabled, exiting, isHer, onHerFound, x],
+      [current, disabled, exiting, isHer, onHerFound, snapBack, x],
     )
 
     useImperativeHandle(ref, () => ({
@@ -98,14 +106,21 @@ export const SwipeStack = forwardRef<SwipeStackHandle, SwipeStackProps>(
         if (disabled || exiting) return
 
         if (active) {
-          if (isHer && mx < 0) return
-          x.set(mx)
+          if (isHer) {
+            if (mx < 0) return
+            x.set(mx)
+            return
+          }
+
+          x.set(Math.min(mx, 0))
           return
         }
 
-        const shouldSwipe = Math.abs(mx) > SWIPE_THRESHOLD || Math.abs(vx) > 0.5
+        const shouldSwipe =
+          Math.abs(mx) > SWIPE_THRESHOLD || Math.abs(vx) > 0.5
+
         if (!shouldSwipe) {
-          animate(x, 0, { type: 'spring', stiffness: 400, damping: 30 })
+          snapBack()
           return
         }
 

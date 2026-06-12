@@ -44,10 +44,13 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
         <ActionButtons
           onNope={() => stackRef.current?.nope()}
           onLike={() => stackRef.current?.like()}
+          showLike={onHerCard}
           disableNope={onHerCard}
         />
         <p className="mt-4 text-center text-xs text-white/40">
-          {onHerCard ? 'Лайкни, чтобы продолжить ❤️' : 'Свайпай влево или вправо'}
+          {onHerCard
+            ? 'Лайкни, чтобы продолжить ❤️'
+            : 'Свайпай влево, чтобы пропустить'}
         </p>
       </div>
     </div>

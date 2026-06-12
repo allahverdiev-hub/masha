@@ -10,6 +10,7 @@ type ProfileCardProps = {
 export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) {
   const fallbackX = useMotionValue(0)
   const xVal = dragX ?? fallbackX
+  const showLikeStamp = Boolean(profile.isHer && dragX)
 
   const likeOpacity = useTransform(xVal, (v) =>
     Math.min(Math.max(v / 80, 0), 1),
@@ -38,16 +39,18 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
           draggable={false}
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
 
         {!glow && dragX && (
           <>
-            <motion.div
-              className="absolute left-6 top-8 rotate-[-20deg] rounded-lg border-4 border-green-400 px-3 py-1 text-2xl font-extrabold uppercase tracking-wider text-green-400"
-              style={{ opacity: likeOpacity }}
-            >
-              Like
-            </motion.div>
+            {showLikeStamp && (
+              <motion.div
+                className="absolute left-6 top-8 rotate-[-20deg] rounded-lg border-4 border-green-400 px-3 py-1 text-2xl font-extrabold uppercase tracking-wider text-green-400"
+                style={{ opacity: likeOpacity }}
+              >
+                Like
+              </motion.div>
+            )}
             <motion.div
               className="absolute right-6 top-8 rotate-[20deg] rounded-lg border-4 border-red-400 px-3 py-1 text-2xl font-extrabold uppercase tracking-wider text-red-400"
               style={{ opacity: nopeOpacity }}
@@ -69,6 +72,11 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
           </div>
           <p className="mt-1 text-sm text-white/70">{profile.city}</p>
           <p className="mt-2 line-clamp-2 text-sm text-white/85">{profile.bio}</p>
+          {profile.footerCaption && (
+            <p className="mt-5 text-center font-display text-2xl font-bold leading-snug gradient-text sm:text-3xl">
+              {profile.footerCaption}
+            </p>
+          )}
         </div>
       </div>
     </div>

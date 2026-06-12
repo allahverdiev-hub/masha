@@ -6,9 +6,9 @@ export type Profile = {
   bio: string
   photo: string
   isHer?: boolean
+  footerCaption?: string
 }
 
-// Замените фото на свои в public/assets/profiles/
 export const profiles: Profile[] = [
   {
     id: 'fake-1',
@@ -16,7 +16,7 @@ export const profiles: Profile[] = [
     age: 24,
     city: 'Москва',
     bio: 'Люблю путешествия и хороший кофе ☕',
-    photo: 'https://picsum.photos/seed/mamba1/400/600',
+    photo: 'https://randomuser.me/api/portraits/women/12.jpg',
   },
   {
     id: 'fake-2',
@@ -24,7 +24,7 @@ export const profiles: Profile[] = [
     age: 26,
     city: 'Санкт-Петербург',
     bio: 'Ищу интересного собеседника',
-    photo: 'https://picsum.photos/seed/mamba2/400/600',
+    photo: 'https://randomuser.me/api/portraits/women/28.jpg',
   },
   {
     id: 'fake-3',
@@ -32,7 +32,7 @@ export const profiles: Profile[] = [
     age: 23,
     city: 'Казань',
     bio: 'Фотограф и мечтательница 📷',
-    photo: 'https://picsum.photos/seed/mamba3/400/600',
+    photo: 'https://randomuser.me/api/portraits/women/45.jpg',
   },
   {
     id: 'fake-4',
@@ -40,7 +40,7 @@ export const profiles: Profile[] = [
     age: 25,
     city: 'Екатеринбург',
     bio: 'Йога, книги и закаты',
-    photo: 'https://picsum.photos/seed/mamba4/400/600',
+    photo: 'https://randomuser.me/api/portraits/women/63.jpg',
   },
   {
     id: 'fake-5',
@@ -48,15 +48,16 @@ export const profiles: Profile[] = [
     age: 27,
     city: 'Новосибирск',
     bio: 'Живу в моменте ✨',
-    photo: 'https://picsum.photos/seed/mamba5/400/600',
+    photo: 'https://randomuser.me/api/portraits/women/71.jpg',
   },
   {
     id: 'her',
-    name: 'Манечка',
+    name: 'Маша',
     age: 24,
-    city: 'Твой город',
-    bio: 'Та самая, ради которой всё это 💕',
-    photo: 'https://picsum.photos/seed/herlove/400/600',
+    city: 'Пермь',
+    bio: 'Занимаюсь в зале и танцую на пилоне',
+    photo: '/assets/profiles/masha.jpg',
+    footerCaption: 'Моя самая любимая чудо-девушка',
     isHer: true,
   },
 ]
