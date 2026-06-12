@@ -41,12 +41,13 @@ export function LoveMessageSection({ section }: { section: LoveMessageSectionTyp
         </div>
 
         <motion.div
-          className="shimmer-border rounded-3xl bg-white/5 px-6 py-8 backdrop-blur-sm"
+          className="shimmer-border-frame rounded-3xl p-[10px]"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
+          <div className="rounded-[calc(1.5rem-10px)] bg-[#2a2a2e] px-6 py-8">
           <h2 className="font-display text-center text-2xl font-bold gradient-text sm:text-3xl">
             {section.highlight}
           </h2>
@@ -92,6 +93,7 @@ export function LoveMessageSection({ section }: { section: LoveMessageSectionTyp
               {section.buttonText}
             </a>
           </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

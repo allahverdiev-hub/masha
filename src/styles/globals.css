@@ -38,6 +38,14 @@ body {
   overscroll-behavior: none;
 }
 
+html.memories-mode {
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  height: auto;
+  min-height: 100%;
+}
+
 body.memories-mode {
   overflow-y: auto;
   overflow-x: hidden;
@@ -45,11 +53,8 @@ body.memories-mode {
   touch-action: pan-y;
   width: 100%;
   max-width: 100vw;
-}
-
-html.memories-mode {
-  overflow-x: hidden;
-  overscroll-behavior-x: none;
+  height: auto;
+  min-height: 100dvh;
 }
 
 .safe-top {
@@ -96,7 +101,7 @@ html.memories-mode {
   }
 }
 
-.shimmer-border {
+.shimmer-border-frame {
   background: linear-gradient(
     90deg,
     #ff6b35,

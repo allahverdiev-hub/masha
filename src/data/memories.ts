@@ -128,6 +128,5 @@ export const memorySections: MemorySection[] = [
     id: 'finale',
     title: 'Люблю тебя',
     subtitle: 'Навсегда твой ❤️',
-    message: 'Я хочу продолжать и дальше строить эту историю с тобой.',
   },
 ]

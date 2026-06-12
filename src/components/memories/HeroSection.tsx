@@ -1,12 +1,19 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { HeroSection } from '../../data/memories'
 
 export function HeroSectionView({ section }: { section: HeroSection }) {
   const ref = useRef<HTMLElement>(null)
+  const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null)
+
+  useEffect(() => {
+    setScrollContainer(document.scrollingElement as HTMLElement | null)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
+    container: scrollContainer ? { current: scrollContainer } : undefined,
   })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3])
@@ -17,13 +24,13 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
         className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-4"
         style={{ y }}
       >
-        <div className="relative h-[75dvh] w-full max-w-md overflow-hidden rounded-[20px]">
+        <div className="relative flex h-[68dvh] w-full max-w-md items-center justify-center overflow-hidden rounded-[20px] bg-[#1a0a12]">
           <img
             src={section.photo}
             alt={section.title}
-            className="h-full w-full object-cover object-center"
+            className="h-[90%] w-[90%] rounded-[14px] object-cover object-[center_15%]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a12] via-[#1a0a12]/30 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a0a12] via-[#1a0a12]/30 to-transparent" />
         </div>
       </motion.div>
 

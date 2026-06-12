@@ -12,7 +12,7 @@ export function MemoriesPhase() {
 
   return (
     <motion.div
-      className="relative min-h-full w-full max-w-[100vw] overflow-x-hidden bg-[#1a0a12] touch-pan-y"
+      className="relative min-h-full w-full max-w-[100vw] bg-[#1a0a12] touch-pan-y"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
