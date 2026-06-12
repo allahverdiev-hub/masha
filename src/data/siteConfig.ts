@@ -1,3 +1,9 @@
+export const site = {
+  url: 'https://allahverdiev-hub.github.io/masha',
+  title: 'Для тебя, манюнька',
+  description: 'История, которая началась с одного свайпа',
+}
+
 export const backgroundMusic = {
   src: '/assets/memories/ambient.mp3',
   volume: 0.28,
