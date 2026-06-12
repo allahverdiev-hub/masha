@@ -34,9 +34,9 @@ export function ActionButtons({
           onClick={onLike}
           disabled={disabled}
           aria-label="Нравится"
-          className="flex h-20 w-20 items-center justify-center rounded-full gradient-mamba text-3xl shadow-lg shadow-[#ff4d8d]/40 transition-transform active:scale-90 disabled:opacity-40"
+          className="flex h-20 w-20 items-center justify-center rounded-full gradient-mamba-shimmer text-3xl shadow-lg shadow-[#ff4d8d]/40 transition-transform active:scale-90 disabled:opacity-40"
         >
-          ❤️
+          <span className="heart-pulse" aria-hidden>❤️</span>
         </button>
       )}
     </div>

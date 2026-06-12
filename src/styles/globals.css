@@ -118,7 +118,8 @@ html.memories-mode #root {
 }
 
 .shimmer-border,
-.shimmer-border-frame {
+.shimmer-border-frame,
+.gradient-mamba-shimmer {
   background: linear-gradient(
     90deg,
     #ff6b35,
@@ -128,6 +129,21 @@ html.memories-mode #root {
   );
   background-size: 200% auto;
   animation: shimmer 2s linear infinite;
+}
+
+@keyframes heart-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+}
+
+.heart-pulse {
+  display: inline-block;
+  animation: heart-pulse 1.4s ease-in-out infinite;
 }
 
 .font-display {
