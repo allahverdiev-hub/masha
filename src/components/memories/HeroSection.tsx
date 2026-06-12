@@ -13,13 +13,18 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
 
   return (
     <section ref={ref} className="relative h-[100dvh] w-full overflow-hidden">
-      <motion.div className="absolute inset-0 flex items-center justify-center bg-[#1a0a12]" style={{ y }}>
-        <img
-          src={section.photo}
-          alt={section.title}
-          className="h-full w-full object-contain object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a12] via-[#1a0a12]/30 to-transparent" />
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-4"
+        style={{ y }}
+      >
+        <div className="relative h-[75dvh] w-full max-w-md overflow-hidden rounded-[20px]">
+          <img
+            src={section.photo}
+            alt={section.title}
+            className="h-full w-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a12] via-[#1a0a12]/30 to-transparent" />
+        </div>
       </motion.div>
 
       <motion.div

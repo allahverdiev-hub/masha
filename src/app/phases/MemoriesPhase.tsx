@@ -3,12 +3,12 @@ import { memorySections } from '../../data/memories'
 import { useBackgroundMusic } from '../../hooks/useBackgroundMusic'
 import { HeroSectionView } from '../../components/memories/HeroSection'
 import { StoryTimeline } from '../../components/memories/StoryTimeline'
-import { PhotoSwipeGallery } from '../../components/memories/PhotoSwipeGallery'
+import { ParallaxGallery } from '../../components/memories/ParallaxGallery'
+import { LoveMessageSection } from '../../components/memories/LoveMessageSection'
 import { FinaleSection } from '../../components/memories/FinaleSection'
-import { MusicToggle } from '../../components/memories/MusicToggle'
 
 export function MemoriesPhase() {
-  const { muted, toggleMute } = useBackgroundMusic()
+  useBackgroundMusic()
 
   return (
     <motion.div
@@ -17,16 +17,16 @@ export function MemoriesPhase() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      <MusicToggle muted={muted} onToggle={toggleMute} />
-
       {memorySections.map((section) => {
         switch (section.type) {
           case 'hero':
             return <HeroSectionView key={section.id} section={section} />
           case 'timeline':
             return <StoryTimeline key={section.id} section={section} />
-          case 'gallery':
-            return <PhotoSwipeGallery key={section.id} section={section} />
+          case 'parallax':
+            return <ParallaxGallery key={section.id} section={section} />
+          case 'loveMessage':
+            return <LoveMessageSection key={section.id} section={section} />
           case 'finale':
             return <FinaleSection key={section.id} section={section} />
           default:

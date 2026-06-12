@@ -8,9 +8,10 @@ export type HeroSection = {
 }
 
 export type TimelineItem = {
-  date: string
+  date?: string
   title: string
   description: string
+  variant?: 'default' | 'sub'
 }
 
 export type TimelineSection = {
@@ -20,11 +21,21 @@ export type TimelineSection = {
   items: TimelineItem[]
 }
 
-export type GallerySection = {
-  type: 'gallery'
+export type ParallaxSection = {
+  type: 'parallax'
   id: string
   title: string
-  photos: { src: string; caption?: string }[]
+  photos: { src: string }[]
+}
+
+export type LoveMessageSection = {
+  type: 'loveMessage'
+  id: string
+  photos: [string, string]
+  paragraphs: string[]
+  highlight: string
+  closingLine: string
+  buttonText: string
 }
 
 export type FinaleSection = {
@@ -38,10 +49,11 @@ export type FinaleSection = {
 export type MemorySection =
   | HeroSection
   | TimelineSection
-  | GallerySection
+  | ParallaxSection
+  | LoveMessageSection
   | FinaleSection
 
-const galleryPhotos = Array.from({ length: 22 }, (_, i) => {
+const parallaxPhotos = Array.from({ length: 22 }, (_, i) => {
   const num = String(i + 1).padStart(2, '0')
   return { src: `/assets/memories/${num}.jpg` }
 })
@@ -64,33 +76,52 @@ export const memorySections: MemorySection[] = [
         date: 'Первый день',
         title: 'Знакомство в Mamba',
         description:
-          'Ты написала первой — или я? Главное, что мы нашли друг друга в бесконечной ленте анкет.',
+          'Среди всех девушек ты приглянулась мне сильнее всего, а моё любопытство ещё разожгло твой спортивный опыт',
       },
       {
-        date: 'Первое сообщение',
+        date: 'Переписка',
         title: 'Тот самый чат',
         description:
-          'Переписка, от которой не хотелось отрываться. Смайлики, шутки, и ощущение — вот оно.',
+          'Я помню что мы могли по долгу переписываться и болтать о разном, даже помню как обсуждали тёмное нефильтрованное твоё в Белке 😂',
       },
       {
         date: 'Первое свидание',
         title: 'Встреча вживую',
         description:
-          'Волнение, улыбки и понимание: всё это было не зря. Лучший день.',
+          'Помню как мы встретились в Аймоле. Я слегка умилился, что ты небольшого роста, но меня это не беспокоило) Мы пошли в Пышку. Я тебя распрашивал обо всем будто мы на интервью) Но потом разговор пошёл сам по себе легко.',
+      },
+      {
+        title: 'Начало наших крепких отношений',
+        description:
+          'Помню, как мы встретились в 62 лаундж в випке и я тебя впервые поцеловал 🥰. Ты тогда немного засмущалась 🥰',
+        variant: 'sub',
       },
       {
         date: 'Сегодня',
         title: 'Каждый день с тобой',
         description:
-          'Каждый момент рядом с тобой — маленькое чудо. И это только начало.',
+          'Каждый момент рядом с тобой — маленькое чудо, как и ты моя манюнька ❤️. И это только начало 🥰',
       },
     ],
   },
   {
-    type: 'gallery',
-    id: 'gallery',
+    type: 'parallax',
+    id: 'parallax',
     title: 'Наши моменты',
-    photos: galleryPhotos,
+    photos: parallaxPhotos,
+  },
+  {
+    type: 'loveMessage',
+    id: 'loveMessage',
+    photos: ['/assets/memories/apology-1.jpg', '/assets/memories/apology-2.jpg'],
+    highlight: 'Ты моя самая лучшая чудо-девушка!',
+    paragraphs: [
+      'Я тебя очень сильно люблю и мне очень грустно, что я не был с тобою рядом в важный для тебя день.',
+      'Извини меня, солнышко. Надеюсь, что ты не сердишься.',
+      'Я хочу и дальше продолжать строить историю нашей жизни вместе.',
+    ],
+    closingLine: 'Надеюсь, что и ты тоже 🥰 Если да, нажми на кнопочку ниже.',
+    buttonText: 'Давай продолжать строить историю вместе',
   },
   {
     type: 'finale',

@@ -17,23 +17,48 @@ export function StoryTimeline({ section }: { section: TimelineSection }) {
       <div className="relative mx-auto max-w-md">
         <div className="absolute bottom-0 left-[11px] top-0 w-0.5 bg-gradient-to-b from-[#ff6b35] via-[#ff4d8d] to-[#7b2cbf]" />
 
-        {section.items.map((item, i) => (
-          <motion.div
-            key={item.title}
-            className="relative mb-10 pl-10 last:mb-0"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-          >
-            <div className="absolute left-0 top-1 h-6 w-6 rounded-full gradient-mamba shadow-lg shadow-[#ff4d8d]/30" />
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#ff4d8d]">
-              {item.date}
-            </p>
-            <h3 className="mt-1 text-xl font-bold text-white">{item.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-white/65">{item.description}</p>
-          </motion.div>
-        ))}
+        {section.items.map((item, i) => {
+          const isSub = item.variant === 'sub'
+
+          return (
+            <motion.div
+              key={item.title}
+              className={`relative mb-10 last:mb-0 ${isSub ? 'pl-14' : 'pl-10'}`}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              {isSub ? (
+                <div className="absolute left-3 top-1 text-sm">💕</div>
+              ) : (
+                <div className="absolute left-0 top-1 h-6 w-6 rounded-full gradient-mamba shadow-lg shadow-[#ff4d8d]/30" />
+              )}
+
+              <div
+                className={
+                  isSub
+                    ? 'rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm'
+                    : undefined
+                }
+              >
+                {item.date && (
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#ff4d8d]">
+                    {item.date}
+                  </p>
+                )}
+                <h3
+                  className={`font-bold text-white ${isSub ? 'text-lg' : 'mt-1 text-xl'}`}
+                >
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/65">
+                  {item.description}
+                </p>
+              </div>
+            </motion.div>
+          )
+        })}
       </div>
     </section>
   )
