@@ -2,7 +2,9 @@ import { motion } from 'framer-motion'
 import type { TextParallaxItem, TextParallaxSection } from '../../data/memories'
 import { getTelegramUrl } from '../../data/siteConfig'
 import {
+  PARALLAX_MOTION_CLASS,
   PARALLAX_SLIDE_HEIGHT_VH,
+  PARALLAX_STICKY_SHELL_CLASS,
   useParallaxSlide,
 } from '../../hooks/useParallaxSlide'
 import { highlightKeywords } from '../../utils/highlightKeywords'
@@ -26,7 +28,7 @@ export function TextParallax({ section }: { section: TextParallaxSection }) {
 function PlaqueEmoji({ emoji }: { emoji?: string }) {
   if (!emoji) return null
   return (
-    <p className="mb-3 text-center text-xl sm:text-2xl" aria-hidden>
+    <p className="mb-2 text-center text-xl sm:mb-3 sm:text-2xl" aria-hidden>
       {emoji}
     </p>
   )
@@ -42,11 +44,11 @@ function TextSlide({ item, index }: { item: TextParallaxItem; index: number }) {
       style={{ height: `${PARALLAX_SLIDE_HEIGHT_VH}vh` }}
     >
       <div
-        className="sticky top-0 flex h-[100dvh] items-center justify-center px-6 py-16"
+        className={PARALLAX_STICKY_SHELL_CLASS}
         style={{ zIndex: index + 1 }}
       >
         <motion.div
-          className="relative w-full max-w-sm will-change-transform"
+          className={PARALLAX_MOTION_CLASS}
           style={{ y, scale, opacity, rotate }}
         >
           <div
@@ -56,9 +58,9 @@ function TextSlide({ item, index }: { item: TextParallaxItem; index: number }) {
                 '0 24px 48px rgba(0,0,0,0.4), 0 0 32px rgba(255,77,141,0.2)',
             }}
           >
-            <div className="rounded-[14px] bg-[#1a0a12]/95 px-6 py-8 backdrop-blur-sm">
+            <div className="rounded-[14px] bg-[#1a0a12]/95 px-5 py-6 backdrop-blur-sm sm:px-6 sm:py-8">
               <PlaqueEmoji emoji={item.emoji} />
-              <p className="text-center text-base leading-relaxed text-white/85 sm:text-lg">
+              <p className="text-pretty break-words text-center text-base leading-relaxed text-white/85 sm:text-lg">
                 {highlightKeywords(item.text)}
               </p>
             </div>
@@ -89,11 +91,11 @@ function CtaSlide({
       style={{ height: `${PARALLAX_SLIDE_HEIGHT_VH}vh` }}
     >
       <div
-        className="sticky top-0 flex h-[100dvh] items-center justify-center px-6 py-16"
+        className={PARALLAX_STICKY_SHELL_CLASS}
         style={{ zIndex: index + 1 }}
       >
         <motion.div
-          className="relative w-full max-w-sm will-change-transform"
+          className={PARALLAX_MOTION_CLASS}
           style={{ y, scale, opacity, rotate }}
         >
           <div
@@ -103,17 +105,17 @@ function CtaSlide({
                 '0 24px 48px rgba(0,0,0,0.4), 0 0 32px rgba(255,77,141,0.2)',
             }}
           >
-            <div className="rounded-[14px] bg-[#2a2a2e] px-6 py-8 backdrop-blur-sm">
+            <div className="rounded-[14px] bg-[#2a2a2e] px-5 py-6 backdrop-blur-sm sm:px-6 sm:py-8">
               <PlaqueEmoji emoji={closingEmoji} />
-              <p className="text-center text-lg leading-relaxed text-white/90">
+              <p className="text-pretty break-words text-center text-base leading-relaxed text-white/90 sm:text-lg">
                 {highlightKeywords(closingLine)}
               </p>
-              <div className="mt-8 flex justify-center">
+              <div className="mt-6 flex justify-center sm:mt-8">
                 <a
                   href={getTelegramUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="gradient-mamba rounded-full px-8 py-4 text-center text-sm font-semibold text-white shadow-lg shadow-[#ff4d8d]/30 transition active:scale-95 sm:text-base"
+                  className="gradient-mamba max-w-full rounded-full px-5 py-3.5 text-center text-sm font-semibold leading-snug whitespace-normal text-white shadow-lg shadow-[#ff4d8d]/30 transition active:scale-95 sm:px-8 sm:py-4 sm:text-base"
                 >
                   {buttonText}
                 </a>

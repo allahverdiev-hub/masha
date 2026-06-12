@@ -26,9 +26,9 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
   return (
     <section
       ref={ref}
-      className="relative h-[100svh] min-h-[100svh] w-full overflow-hidden"
+      className="relative h-[100svh] min-h-[100svh] w-full max-w-[100vw] overflow-hidden safe-x"
     >
-      <div className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-5 pb-36 pt-12">
+      <div className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-4 pb-28 pt-[max(3rem,env(safe-area-inset-top))] sm:px-5 sm:pb-36 sm:pt-12">
         <motion.div
           className="relative w-full max-w-lg overflow-hidden rounded-[20px] bg-[#2a1520] shadow-2xl shadow-black/40"
           initial={{ rotate: -6, scale: 0.94, opacity: 0 }}
@@ -55,20 +55,20 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
       </div>
 
       <motion.div
-        className="pointer-events-none relative flex h-full flex-col items-center justify-end px-6 pb-20 text-center safe-bottom will-change-[opacity]"
+        className="pointer-events-none relative flex h-full flex-col items-center justify-end px-4 pb-16 text-center safe-bottom sm:px-6 sm:pb-20 will-change-[opacity]"
         style={{ opacity: textOpacity }}
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <h1 className="font-display max-w-md text-4xl font-bold leading-tight gradient-text sm:max-w-lg sm:text-5xl">
+        <h1 className="font-display max-w-md text-[clamp(1.65rem,6.5vw,2.75rem)] font-bold leading-tight gradient-text sm:max-w-lg">
           {section.title}
         </h1>
         <TypewriterText text={section.subtitle} />
       </motion.div>
 
       <motion.div
-        className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="pointer-events-none absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 sm:bottom-8"
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 1.5 }}
       >

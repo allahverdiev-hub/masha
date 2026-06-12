@@ -64,7 +64,7 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
         <p className="mt-1 text-sm text-white/70">{profile.city}</p>
         <p className="mt-2 line-clamp-2 text-sm text-white/85">{profile.bio}</p>
         {profile.footerCaption && (
-          <p className="mt-5 text-center font-display text-2xl font-bold leading-snug gradient-text sm:text-3xl">
+          <p className="mt-5 text-pretty break-words text-center font-display text-xl font-bold leading-snug gradient-text sm:text-2xl md:text-3xl">
             {profile.footerCaption}
           </p>
         )}

@@ -69,6 +69,8 @@ body.memories-mode {
 html.memories-mode #root {
   height: auto;
   min-height: 100dvh;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .safe-top {

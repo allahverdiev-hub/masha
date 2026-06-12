@@ -3,6 +3,15 @@ import { useRef } from 'react'
 
 export const PARALLAX_SLIDE_HEIGHT_VH = 88
 
+export const PARALLAX_SECTION_TITLE_CLASS =
+  'flex min-h-[12svh] items-end justify-center px-4 pb-4 pt-2 sm:min-h-[16svh] sm:px-6 sm:pb-6'
+
+export const PARALLAX_STICKY_SHELL_CLASS =
+  'sticky top-0 flex h-[100svh] max-h-[100svh] items-center justify-center overflow-hidden px-4 pt-[max(0.5rem,env(safe-area-inset-top))] pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-6 sm:py-8'
+
+export const PARALLAX_MOTION_CLASS =
+  'relative w-full min-w-0 max-w-sm will-change-transform'
+
 const SPRING = { stiffness: 55, damping: 22, mass: 1.1, restDelta: 0.0005 }
 
 export function smoothstep(t: number) {

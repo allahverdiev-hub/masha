@@ -7,7 +7,7 @@ import { FinaleSection } from '../../components/memories/FinaleSection'
 
 export function MemoriesPhase() {
   return (
-    <div className="relative min-h-full w-full max-w-[100vw] bg-[#1a0a12] touch-pan-y">
+    <div className="relative min-h-full w-full max-w-[100vw] overflow-x-hidden bg-[#1a0a12] touch-pan-y">
       {memorySections.map((section) => {
         switch (section.type) {
           case 'hero':
