@@ -29,25 +29,30 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
   return (
     <section ref={ref} className="relative h-[100dvh] w-full overflow-hidden">
       <motion.div
-        className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-4"
+        className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-5 pb-36 pt-12"
         style={{ y }}
       >
-        <div className="relative flex h-[68dvh] w-full max-w-md items-center justify-center overflow-hidden rounded-[20px] bg-[#2a1520]">
+        <motion.div
+          className="relative w-full max-w-lg overflow-hidden rounded-[20px] bg-[#2a1520] shadow-2xl shadow-black/40"
+          initial={{ rotate: -6, scale: 0.94, opacity: 0 }}
+          animate={{ rotate: -3.5, scale: 1, opacity: 1 }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
+        >
           {!heroLoaded && (
-            <div className="absolute inset-0 animate-pulse bg-[#2a1520]" />
+            <div className="absolute inset-0 z-10 animate-pulse bg-[#2a1520]" />
           )}
           <img
             src={section.photo}
             alt={section.title}
-            className="h-[90%] w-[90%] rounded-[14px] object-cover object-[center_15%] transition-opacity duration-300"
+            className="aspect-[16/10] w-full object-cover object-[center_22%] transition-opacity duration-300"
             style={{ opacity: heroLoaded ? 1 : 0 }}
             loading="eager"
             fetchPriority="high"
             decoding="async"
             onLoad={() => setHeroLoaded(true)}
           />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a0a12] via-[#1a0a12]/30 to-transparent" />
-        </div>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a0a12]/50 via-transparent to-transparent" />
+        </motion.div>
       </motion.div>
 
       <motion.div
