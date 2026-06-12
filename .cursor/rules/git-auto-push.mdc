@@ -1,0 +1,18 @@
+---
+description: Auto-commit and push to origin after code changes in this project
+alwaysApply: true
+---
+
+# Git: push after edits
+
+After completing code changes in this repository:
+
+1. Run `git status` and `git diff` to review what changed.
+2. Stage only relevant files (never `.env`, credentials, or secrets).
+3. Commit with a short message describing why the change was made.
+4. Push to `origin` on the current branch (`git push origin HEAD`).
+5. If commit fails (e.g. missing author), use inline identity without changing git config:
+   `git -c user.name="User" -c user.email="user@local" commit -m "..."`
+6. Confirm with `git status` that the branch is up to date with remote.
+
+Skip commit/push only when the user explicitly says not to, or when there are no changes to commit.
