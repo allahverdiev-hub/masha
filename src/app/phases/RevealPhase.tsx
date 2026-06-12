@@ -18,7 +18,7 @@ export function RevealPhase({ onContinue }: RevealPhaseProps) {
       /* ignore */
     }
 
-    const timer = setTimeout(onContinue, 2200)
+    const timer = setTimeout(onContinue, 4000)
     return () => clearTimeout(timer)
   }, [onContinue])
 

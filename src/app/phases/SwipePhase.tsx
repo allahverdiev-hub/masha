@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SwipeStack, type SwipeStackHandle } from '../../components/SwipeStack'
 import { ActionButtons } from '../../components/ActionButtons'
 import { profiles } from '../../data/profiles'
@@ -9,6 +9,7 @@ type SwipePhaseProps = {
 
 export function SwipePhase({ onHerFound }: SwipePhaseProps) {
   const stackRef = useRef<SwipeStackHandle>(null)
+  const [celebrating, setCelebrating] = useState(false)
 
   useEffect(() => {
     profiles.forEach((p) => {
@@ -31,6 +32,8 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
           ref={stackRef}
           profiles={profiles}
           onHerFound={onHerFound}
+          onCelebratingChange={setCelebrating}
+          disabled={celebrating}
         />
       </div>
 
@@ -40,8 +43,11 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
           onLike={() => stackRef.current?.like()}
           showLike
           showNope={false}
+          disabled={celebrating}
         />
-        <p className="mt-4 text-center text-xs text-white/40">
+        <p
+          className={`mt-4 text-center text-xs text-white/40 transition-opacity ${celebrating ? 'opacity-0' : ''}`}
+        >
           Лайкни, чтобы продолжить ❤️
         </p>
       </div>

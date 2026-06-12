@@ -4,13 +4,19 @@ import type { Profile } from '../data/profiles'
 type ProfileCardProps = {
   profile: Profile
   glow?: boolean
+  celebrate?: boolean
   dragX?: MotionValue<number>
 }
 
-export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) {
+export function ProfileCard({
+  profile,
+  glow = false,
+  celebrate = false,
+  dragX,
+}: ProfileCardProps) {
   const fallbackX = useMotionValue(0)
   const xVal = dragX ?? fallbackX
-  const showLikeStamp = Boolean(profile.isHer && dragX)
+  const showLikeStamp = Boolean(profile.isHer && dragX && !celebrate)
 
   const likeOpacity = useTransform(xVal, (v) =>
     Math.min(Math.max(v / 80, 0), 1),
@@ -52,6 +58,17 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
         </>
       )}
 
+      {celebrate && (
+        <motion.div
+          className="absolute left-6 top-8 rotate-[-20deg] rounded-lg border-4 border-green-400 px-3 py-1 text-2xl font-extrabold uppercase tracking-wider text-green-400"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
+        >
+          Like
+        </motion.div>
+      )}
+
       <div className="absolute bottom-0 left-0 right-0 p-5 pb-6">
         <div className="flex items-end gap-2">
           <h2 className="text-3xl font-bold text-white">{profile.name}</h2>
@@ -72,9 +89,13 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
     </>
   )
 
-  if (glow) {
+  const useGlowFrame = glow || celebrate
+
+  if (useGlowFrame) {
     return (
-      <div className="relative h-full w-full min-h-[min(68dvh,640px)] rounded-3xl p-[3px] shimmer-border card-glow">
+      <div
+        className={`relative h-full w-full min-h-[min(68dvh,640px)] rounded-3xl p-[3px] shimmer-border card-glow ${celebrate ? 'glow-pulse-border' : ''}`}
+      >
         <div className="relative h-full min-h-[min(68dvh,640px)] overflow-hidden rounded-[21px] bg-[#2a1520]">
           {cardInner}
         </div>
