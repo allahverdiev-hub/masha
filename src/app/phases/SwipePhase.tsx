@@ -23,7 +23,7 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
   }, [])
 
   return (
-    <div className="flex h-full flex-col bg-gradient-to-b from-[#2a1020] via-[#1a0a12] to-[#0d0610] safe-top safe-bottom safe-x">
+    <div className="flex min-h-dvh h-full flex-col bg-gradient-to-b from-[#2a1020] via-[#1a0a12] to-[#0d0610] safe-top safe-bottom safe-x">
       <header className="flex shrink-0 items-center justify-center px-4 py-4">
         <div className="flex items-center gap-2">
           <span className="text-2xl">🔥</span>

@@ -1,4 +1,4 @@
-import { motion, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValue, useTransform, type MotionValue } from 'framer-motion'
 import type { Profile } from '../data/profiles'
 
 type ProfileCardProps = {
@@ -8,8 +8,8 @@ type ProfileCardProps = {
 }
 
 export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) {
-  const staticX = { get: () => 0 } as MotionValue<number>
-  const xVal = dragX ?? staticX
+  const fallbackX = useMotionValue(0)
+  const xVal = dragX ?? fallbackX
 
   const likeOpacity = useTransform(xVal, (v) =>
     Math.min(Math.max(v / 80, 0), 1),
@@ -40,7 +40,7 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-        {!glow && (
+        {!glow && dragX && (
           <>
             <motion.div
               className="absolute left-6 top-8 rotate-[-20deg] rounded-lg border-4 border-green-400 px-3 py-1 text-2xl font-extrabold uppercase tracking-wider text-green-400"
