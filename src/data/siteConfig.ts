@@ -17,3 +17,22 @@ export const telegram = {
 export function getTelegramUrl() {
   return `https://t.me/${telegram.username}?text=${encodeURIComponent(telegram.prefillText)}`
 }
+
+export function getTelegramAppUrl() {
+  return `tg://resolve?domain=${telegram.username}&text=${encodeURIComponent(telegram.prefillText)}`
+}
+
+export function openTelegramChat() {
+  const webUrl = getTelegramUrl()
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+
+  if (isMobile) {
+    window.location.href = getTelegramAppUrl()
+    window.setTimeout(() => {
+      window.location.href = webUrl
+    }, 600)
+    return
+  }
+
+  window.open(webUrl, '_blank', 'noopener,noreferrer')
+}

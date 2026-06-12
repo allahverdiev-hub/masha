@@ -31,6 +31,7 @@ export type ParallaxSection = {
   id: string
   title: string
   titleStyle?: 'section' | 'highlight'
+  zIndexOffset?: number
   photos: ParallaxPhoto[]
 }
 
@@ -42,6 +43,7 @@ export type TextParallaxItem = {
 export type TextParallaxSection = {
   type: 'textParallax'
   id: string
+  zIndexOffset?: number
   items: TextParallaxItem[]
   closingLine: string
   closingEmoji?: string
@@ -177,6 +179,7 @@ export const memorySections: MemorySection[] = [
     type: 'parallax',
     id: 'parallax',
     title: 'Наши моменты',
+    zIndexOffset: 20,
     photos: parallaxPhotos,
   },
   {
@@ -184,11 +187,13 @@ export const memorySections: MemorySection[] = [
     id: 'apologyPhotos',
     title: 'Ты моя самая лучшая чудо-девушка!',
     titleStyle: 'highlight',
+    zIndexOffset: 45,
     photos: apologyPhotos,
   },
   {
     type: 'textParallax',
     id: 'loveText',
+    zIndexOffset: 55,
     items: loveTextItems,
     closingEmoji: '💕',
     closingLine: 'Надеюсь, что и ты тоже 🥰 Если да, нажми на кнопочку ниже.',

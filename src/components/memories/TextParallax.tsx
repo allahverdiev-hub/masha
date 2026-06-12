@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import type { TextParallaxItem, TextParallaxSection } from '../../data/memories'
-import { getTelegramUrl } from '../../data/siteConfig'
+import { TelegramButton } from '../TelegramButton'
 import {
   PARALLAX_MOTION_CLASS,
   PARALLAX_SLIDE_HEIGHT_VH,
@@ -10,13 +10,21 @@ import {
 import { highlightKeywords } from '../../utils/highlightKeywords'
 
 export function TextParallax({ section }: { section: TextParallaxSection }) {
+  const zIndexOffset = section.zIndexOffset ?? 0
+
   return (
     <section className="relative">
       {section.items.map((item, index) => (
-        <TextSlide key={index} item={item} index={index} />
+        <TextSlide
+          key={index}
+          item={item}
+          index={index}
+          zIndexOffset={zIndexOffset}
+        />
       ))}
       <CtaSlide
         index={section.items.length}
+        zIndexOffset={zIndexOffset}
         closingLine={section.closingLine}
         closingEmoji={section.closingEmoji}
         buttonText={section.buttonText}
@@ -34,8 +42,16 @@ function PlaqueEmoji({ emoji }: { emoji?: string }) {
   )
 }
 
-function TextSlide({ item, index }: { item: TextParallaxItem; index: number }) {
-  const { ref, y, scale, opacity, rotate } = useParallaxSlide(index)
+function TextSlide({
+  item,
+  index,
+  zIndexOffset,
+}: {
+  item: TextParallaxItem
+  index: number
+  zIndexOffset: number
+}) {
+  const { ref, y, scale, opacity, rotate, pointerEvents } = useParallaxSlide(index)
 
   return (
     <div
@@ -45,11 +61,11 @@ function TextSlide({ item, index }: { item: TextParallaxItem; index: number }) {
     >
       <div
         className={PARALLAX_STICKY_SHELL_CLASS}
-        style={{ zIndex: index + 1 }}
+        style={{ zIndex: zIndexOffset + index + 1 }}
       >
         <motion.div
           className={PARALLAX_MOTION_CLASS}
-          style={{ y, scale, opacity, rotate }}
+          style={{ y, scale, opacity, rotate, pointerEvents }}
         >
           <div
             className="shimmer-border-frame rounded-2xl p-[2px] shadow-2xl shadow-black/50"
@@ -73,16 +89,18 @@ function TextSlide({ item, index }: { item: TextParallaxItem; index: number }) {
 
 function CtaSlide({
   index,
+  zIndexOffset,
   closingLine,
   closingEmoji,
   buttonText,
 }: {
   index: number
+  zIndexOffset: number
   closingLine: string
   closingEmoji?: string
   buttonText: string
 }) {
-  const { ref, y, scale, opacity, rotate } = useParallaxSlide(index)
+  const { ref, y, scale, opacity, rotate, pointerEvents } = useParallaxSlide(index)
 
   return (
     <div
@@ -92,11 +110,11 @@ function CtaSlide({
     >
       <div
         className={PARALLAX_STICKY_SHELL_CLASS}
-        style={{ zIndex: index + 1 }}
+        style={{ zIndex: zIndexOffset + index + 1 }}
       >
         <motion.div
           className={PARALLAX_MOTION_CLASS}
-          style={{ y, scale, opacity, rotate }}
+          style={{ y, scale, opacity, rotate, pointerEvents }}
         >
           <div
             className="shimmer-border-frame rounded-2xl p-[2px] shadow-2xl shadow-black/50"
@@ -110,15 +128,10 @@ function CtaSlide({
               <p className="text-pretty break-words text-center text-base leading-relaxed text-white/90 sm:text-lg">
                 {highlightKeywords(closingLine)}
               </p>
-              <div className="mt-6 flex justify-center sm:mt-8">
-                <a
-                  href={getTelegramUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gradient-mamba max-w-full rounded-full px-5 py-3.5 text-center text-sm font-semibold leading-snug whitespace-normal text-white shadow-lg shadow-[#ff4d8d]/30 transition active:scale-95 sm:px-8 sm:py-4 sm:text-base"
-                >
+              <div className="relative z-10 mt-6 flex justify-center sm:mt-8">
+                <TelegramButton className="gradient-mamba pointer-events-auto max-w-full rounded-full px-5 py-3.5 text-center text-sm font-semibold leading-snug whitespace-normal text-white shadow-lg shadow-[#ff4d8d]/30 transition active:scale-95 sm:px-8 sm:py-4 sm:text-base">
                   {buttonText}
-                </a>
+                </TelegramButton>
               </div>
             </div>
           </div>

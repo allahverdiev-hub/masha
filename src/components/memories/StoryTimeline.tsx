@@ -24,8 +24,10 @@ export function StoryTimeline({ section }: { section: TimelineSection }) {
   )
 }
 
+const TIMELINE_Z_OFFSET = 10
+
 function TimelineSlide({ item, index }: { item: TimelineItem; index: number }) {
-  const { ref, y, scale, opacity, rotate } = useParallaxSlide(index)
+  const { ref, y, scale, opacity, rotate, pointerEvents } = useParallaxSlide(index)
   const isSub = item.variant === 'sub'
 
   return (
@@ -36,11 +38,11 @@ function TimelineSlide({ item, index }: { item: TimelineItem; index: number }) {
     >
       <div
         className={PARALLAX_STICKY_SHELL_CLASS}
-        style={{ zIndex: index + 1 }}
+        style={{ zIndex: TIMELINE_Z_OFFSET + index + 1 }}
       >
         <motion.div
           className={PARALLAX_MOTION_CLASS}
-          style={{ y, scale, opacity, rotate }}
+          style={{ y, scale, opacity, rotate, pointerEvents }}
         >
           <div
             className={`rounded-2xl shadow-2xl shadow-black/50 ${

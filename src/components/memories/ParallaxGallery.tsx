@@ -31,14 +31,27 @@ export function ParallaxGallery({ section }: { section: ParallaxSection }) {
       </div>
 
       {photos.map((photo, index) => (
-        <PhotoSlide key={photo.src} photo={photo} index={index} />
+        <PhotoSlide
+          key={photo.src}
+          photo={photo}
+          index={index}
+          zIndexOffset={section.zIndexOffset ?? 0}
+        />
       ))}
     </section>
   )
 }
 
-function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
-  const { ref, y, scale, opacity, rotate } = useParallaxSlide(index)
+function PhotoSlide({
+  photo,
+  index,
+  zIndexOffset,
+}: {
+  photo: ParallaxPhoto
+  index: number
+  zIndexOffset: number
+}) {
+  const { ref, y, scale, opacity, rotate, pointerEvents } = useParallaxSlide(index)
 
   return (
     <div
@@ -48,7 +61,7 @@ function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
     >
       <div
         className={PARALLAX_STICKY_SHELL_CLASS}
-        style={{ zIndex: index + 1 }}
+        style={{ zIndex: zIndexOffset + index + 1 }}
       >
         <motion.div
           className={PARALLAX_MOTION_CLASS}
@@ -57,6 +70,7 @@ function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
             scale,
             opacity,
             rotate,
+            pointerEvents,
           }}
         >
           <div
