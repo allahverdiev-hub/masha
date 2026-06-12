@@ -61,15 +61,7 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <motion.p
-          className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-[#ff4d8d]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          {section.date}
-        </motion.p>
-        <h1 className="font-display max-w-sm text-3xl font-bold leading-tight gradient-text sm:max-w-md sm:text-4xl">
+        <h1 className="font-display max-w-md text-4xl font-bold leading-tight gradient-text sm:max-w-lg sm:text-5xl">
           {section.title}
         </h1>
         <TypewriterText text={section.subtitle} />

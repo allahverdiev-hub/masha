@@ -3,7 +3,6 @@ export type HeroSection = {
   id: string
   title: string
   subtitle: string
-  date: string
   photo: string
 }
 
@@ -64,7 +63,6 @@ export const memorySections: MemorySection[] = [
     id: 'hero',
     title: 'История, которая началась с одного свайпа',
     subtitle: 'Мы с тобой',
-    date: 'День, когда мы познакомились',
     photo: '/assets/memories/hero.jpg',
   },
   {
