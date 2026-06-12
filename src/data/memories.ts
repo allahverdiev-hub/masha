@@ -38,6 +38,7 @@ export type FinaleSection = {
   id: string
   title: string
   subtitle: string
+  message?: string
 }
 
 export type MemorySection =
@@ -51,8 +52,8 @@ export const memorySections: MemorySection[] = [
   {
     type: 'hero',
     id: 'hero',
-    title: 'Мы',
-    subtitle: 'История, которая началась с одного свайпа',
+    title: 'История, которая началась с одного свайпа',
+    subtitle: 'Мы с тобой',
     date: 'День, когда мы познакомились',
     photo: 'https://picsum.photos/seed/ourlove/800/1200',
   },
@@ -120,5 +121,6 @@ export const memorySections: MemorySection[] = [
     id: 'finale',
     title: 'Люблю тебя',
     subtitle: 'Навсегда твой ❤️',
+    message: 'Я хочу продолжать и дальше строить эту историю с тобой.',
   },
 ]

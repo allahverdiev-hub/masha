@@ -37,7 +37,9 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
         >
           {section.date}
         </motion.p>
-        <h1 className="font-display text-6xl font-bold gradient-text">{section.title}</h1>
+        <h1 className="font-display max-w-sm text-3xl font-bold leading-tight gradient-text sm:max-w-md sm:text-4xl">
+          {section.title}
+        </h1>
         <TypewriterText text={section.subtitle} />
       </motion.div>
 
