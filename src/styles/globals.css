@@ -49,6 +49,8 @@ html.memories-mode {
   height: auto;
   min-height: 100%;
   overscroll-behavior-x: none;
+  scroll-behavior: auto;
+  overflow-anchor: none;
 }
 
 body.memories-mode {

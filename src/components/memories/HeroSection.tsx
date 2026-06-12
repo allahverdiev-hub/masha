@@ -4,12 +4,9 @@ import type { HeroSection } from '../../data/memories'
 
 export function HeroSectionView({ section }: { section: HeroSection }) {
   const ref = useRef<HTMLElement>(null)
-  const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null)
   const [heroLoaded, setHeroLoaded] = useState(false)
 
   useEffect(() => {
-    setScrollContainer(document.scrollingElement as HTMLElement | null)
-
     const link = document.createElement('link')
     link.rel = 'preload'
     link.as = 'image'
@@ -21,23 +18,24 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
-    container: scrollContainer ? { current: scrollContainer } : undefined,
   })
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3])
+
+  const textOpacity = useTransform(scrollYProgress, [0, 0.75, 1], [1, 1, 0])
+  const imageOpacity = useTransform(scrollYProgress, [0.6, 1], [1, 0.35])
 
   return (
-    <section ref={ref} className="relative h-[100dvh] w-full overflow-hidden">
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-5 pb-36 pt-12"
-        style={{ y }}
-      >
+    <section
+      ref={ref}
+      className="relative h-[100svh] min-h-[100svh] w-full overflow-hidden"
+    >
+      <div className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-5 pb-36 pt-12">
         <motion.div
           className="relative w-full max-w-lg overflow-hidden rounded-[20px] bg-[#2a1520] shadow-2xl shadow-black/40"
           initial={{ rotate: -6, scale: 0.94, opacity: 0 }}
           animate={{ rotate: -3.5, scale: 1, opacity: 1 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
         >
+          <motion.div className="relative will-change-[opacity]" style={{ opacity: imageOpacity }}>
           {!heroLoaded && (
             <div className="absolute inset-0 z-10 animate-pulse bg-[#2a1520]" />
           )}
@@ -52,15 +50,16 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
             onLoad={() => setHeroLoaded(true)}
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a0a12]/50 via-transparent to-transparent" />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
       <motion.div
-        className="relative flex h-full flex-col items-center justify-end px-6 pb-20 text-center safe-bottom"
-        style={{ opacity }}
-        initial={{ opacity: 0, y: 40 }}
+        className="pointer-events-none relative flex h-full flex-col items-center justify-end px-6 pb-20 text-center safe-bottom will-change-[opacity]"
+        style={{ opacity: textOpacity }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <motion.p
           className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-[#ff4d8d]"
@@ -77,7 +76,7 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2"
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 1.5 }}
       >

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { memorySections } from '../../data/memories'
 import { useBackgroundMusic } from '../../hooks/useBackgroundMusic'
 import { HeroSectionView } from '../../components/memories/HeroSection'
@@ -11,12 +10,7 @@ export function MemoriesPhase() {
   useBackgroundMusic()
 
   return (
-    <motion.div
-      className="relative min-h-full w-full max-w-[100vw] bg-[#1a0a12] touch-pan-y"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
+    <div className="relative min-h-full w-full max-w-[100vw] bg-[#1a0a12] touch-pan-y">
       {memorySections.map((section) => {
         switch (section.type) {
           case 'hero':
@@ -33,6 +27,6 @@ export function MemoriesPhase() {
             return null
         }
       })}
-    </motion.div>
+    </div>
   )
 }
