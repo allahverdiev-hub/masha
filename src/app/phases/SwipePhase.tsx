@@ -26,7 +26,7 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
         </div>
       </header>
 
-      <div className="relative min-h-0 flex-1 px-4 pb-2 pt-2">
+      <div className="relative min-h-[min(68dvh,640px)] flex-1 px-4 pb-2 pt-2">
         <SwipeStack
           ref={stackRef}
           profiles={profiles}

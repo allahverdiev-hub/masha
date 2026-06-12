@@ -5,10 +5,18 @@ import type { HeroSection } from '../../data/memories'
 export function HeroSectionView({ section }: { section: HeroSection }) {
   const ref = useRef<HTMLElement>(null)
   const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null)
+  const [heroLoaded, setHeroLoaded] = useState(false)
 
   useEffect(() => {
     setScrollContainer(document.scrollingElement as HTMLElement | null)
-  }, [])
+
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.href = section.photo
+    document.head.appendChild(link)
+    return () => link.remove()
+  }, [section.photo])
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -24,11 +32,19 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
         className="absolute inset-0 flex items-center justify-center bg-[#1a0a12] px-4"
         style={{ y }}
       >
-        <div className="relative flex h-[68dvh] w-full max-w-md items-center justify-center overflow-hidden rounded-[20px] bg-[#1a0a12]">
+        <div className="relative flex h-[68dvh] w-full max-w-md items-center justify-center overflow-hidden rounded-[20px] bg-[#2a1520]">
+          {!heroLoaded && (
+            <div className="absolute inset-0 animate-pulse bg-[#2a1520]" />
+          )}
           <img
             src={section.photo}
             alt={section.title}
-            className="h-[90%] w-[90%] rounded-[14px] object-cover object-[center_15%]"
+            className="h-[90%] w-[90%] rounded-[14px] object-cover object-[center_15%] transition-opacity duration-300"
+            style={{ opacity: heroLoaded ? 1 : 0 }}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            onLoad={() => setHeroLoaded(true)}
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a0a12] via-[#1a0a12]/30 to-transparent" />
         </div>

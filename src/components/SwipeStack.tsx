@@ -133,7 +133,7 @@ export const SwipeStack = forwardRef<SwipeStackHandle, SwipeStackProps>(
     if (!current) return null
 
     return (
-      <div className="relative mx-auto h-full w-full max-w-sm touch-none">
+      <div className="relative mx-auto h-full w-full max-w-sm min-h-[min(68dvh,640px)] touch-none">
         {next && (
           <div className="absolute inset-0 scale-[0.96] opacity-60">
             <ProfileCard profile={next} />

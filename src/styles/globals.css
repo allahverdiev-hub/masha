@@ -110,6 +110,7 @@ html.memories-mode #root {
   }
 }
 
+.shimmer-border,
 .shimmer-border-frame {
   background: linear-gradient(
     90deg,

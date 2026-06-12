@@ -24,8 +24,11 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
       <img
         src={profile.photo}
         alt={profile.name}
-        className="h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
         draggable={false}
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
       />
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
@@ -71,8 +74,8 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
 
   if (glow) {
     return (
-      <div className="relative h-full w-full rounded-3xl p-[3px] shimmer-border card-glow">
-        <div className="relative h-full w-full overflow-hidden rounded-[21px] bg-[#2a1520]">
+      <div className="relative h-full w-full min-h-[min(68dvh,640px)] rounded-3xl p-[3px] shimmer-border card-glow">
+        <div className="relative h-full min-h-[min(68dvh,640px)] overflow-hidden rounded-[21px] bg-[#2a1520]">
           {cardInner}
         </div>
       </div>
@@ -80,7 +83,7 @@ export function ProfileCard({ profile, glow = false, dragX }: ProfileCardProps) 
   }
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-3xl bg-[#2a1520] shadow-2xl shadow-black/40">
+    <div className="relative h-full w-full min-h-[min(68dvh,640px)] overflow-hidden rounded-3xl bg-[#2a1520] shadow-2xl shadow-black/40">
       {cardInner}
     </div>
   )

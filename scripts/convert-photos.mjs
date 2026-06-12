@@ -46,5 +46,29 @@ for (const file of files) {
 
 const heroSrc = path.join(outDir, '01.jpg')
 const heroDst = path.join(outDir, 'hero.jpg')
-fs.copyFileSync(heroSrc, heroDst)
-console.log('hero.jpg created from 01.jpg')
+await sharp(heroSrc)
+  .resize({ width: 960, withoutEnlargement: true })
+  .jpeg({ quality: 78, mozjpeg: true })
+  .toFile(heroDst)
+console.log('hero.jpg optimized from 01.jpg')
+
+const profileDir = path.resolve('public/assets/profiles')
+fs.mkdirSync(profileDir, { recursive: true })
+
+const mashaCandidates = [
+  'C:\\Users\\PC\\Desktop\\photo_2023-10-17_14-29-53.jpg',
+  'C:\\Users\\PC\\Desktop\\photo_2026-06-07_11-47-55.jpg',
+  path.join(outDir, '01.jpg'),
+]
+
+const mashaSrc = mashaCandidates.find((p) => fs.existsSync(p))
+if (mashaSrc) {
+  await sharp(mashaSrc)
+    .rotate()
+    .resize({ width: 900, withoutEnlargement: true })
+    .jpeg({ quality: 80, mozjpeg: true })
+    .toFile(path.join(profileDir, 'masha.jpg'))
+  console.log(`masha.jpg optimized from ${mashaSrc}`)
+} else {
+  console.warn('masha source not found — profile photo skipped')
+}
