@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 import { SwipeStack, type SwipeStackHandle } from '../../components/SwipeStack'
 import { ActionButtons } from '../../components/ActionButtons'
 import { profiles } from '../../data/profiles'
@@ -9,11 +9,6 @@ type SwipePhaseProps = {
 
 export function SwipePhase({ onHerFound }: SwipePhaseProps) {
   const stackRef = useRef<SwipeStackHandle>(null)
-  const [onHerCard, setOnHerCard] = useState(false)
-
-  const handleIndexChange = useCallback((index: number) => {
-    setOnHerCard(profiles[index]?.isHer ?? false)
-  }, [])
 
   useEffect(() => {
     profiles.forEach((p) => {
@@ -36,7 +31,6 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
           ref={stackRef}
           profiles={profiles}
           onHerFound={onHerFound}
-          onIndexChange={handleIndexChange}
         />
       </div>
 
@@ -44,13 +38,11 @@ export function SwipePhase({ onHerFound }: SwipePhaseProps) {
         <ActionButtons
           onNope={() => stackRef.current?.nope()}
           onLike={() => stackRef.current?.like()}
-          showLike={onHerCard}
-          showNope={!onHerCard}
+          showLike
+          showNope={false}
         />
         <p className="mt-4 text-center text-xs text-white/40">
-          {onHerCard
-            ? 'Лайкни, чтобы продолжить ❤️'
-            : 'Свайпай влево, чтобы пропустить'}
+          Лайкни, чтобы продолжить ❤️
         </p>
       </div>
     </div>
