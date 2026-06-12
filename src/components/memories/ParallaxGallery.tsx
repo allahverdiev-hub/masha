@@ -10,6 +10,9 @@ const TITLE_CLASS = {
   highlight: 'text-2xl sm:text-3xl',
 } as const
 
+/** First slides stay eager; rest lazy to reduce memory on long scroll */
+const EAGER_PHOTO_COUNT = 3
+
 export function ParallaxGallery({ section }: { section: ParallaxSection }) {
   const photos = section.photos
   const titleStyle = section.titleStyle ?? 'section'
@@ -65,7 +68,9 @@ function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
               alt={photo.caption ?? ''}
               className="aspect-[3/4] w-full object-cover"
               draggable={false}
+              loading={index < EAGER_PHOTO_COUNT ? 'eager' : 'lazy'}
               decoding="async"
+              fetchPriority={index === 0 ? 'high' : undefined}
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
           </div>
