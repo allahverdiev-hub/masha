@@ -52,7 +52,7 @@ export type FinaleSection = {
   type: 'finale'
   id: string
   title: string
-  subtitle: string
+  subtitle?: string
   message?: string
 }
 
@@ -197,7 +197,6 @@ export const memorySections: MemorySection[] = [
     type: 'finale',
     id: 'finale',
     title: 'Люблю тебя',
-    subtitle: 'Навсегда твой ❤️',
     message: 'Жду тебя дома, солнышко ❤️',
   },
 ]

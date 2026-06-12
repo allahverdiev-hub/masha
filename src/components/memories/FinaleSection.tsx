@@ -64,7 +64,9 @@ export function FinaleSection({ section }: { section: FinaleSection }) {
           ❤️
         </motion.span>
         <h2 className="font-display text-5xl font-bold gradient-text">{section.title}</h2>
-        <p className="mt-4 text-lg text-white/70">{section.subtitle}</p>
+        {section.subtitle && (
+          <p className="mt-4 text-lg text-white/70">{section.subtitle}</p>
+        )}
         {section.message && (
           <motion.p
             className="mt-8 max-w-sm text-base leading-relaxed text-white/85 sm:text-lg"
