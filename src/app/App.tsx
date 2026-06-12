@@ -9,7 +9,7 @@ export default function App() {
   const { phase, goToReveal, goToTransition, goToMemories } = useAppPhase()
 
   return (
-    <div className="min-h-dvh h-full w-full">
+    <div className="min-h-dvh w-full">
       {phase === 'swipe' && <SwipePhase onHerFound={goToReveal} />}
 
       <AnimatePresence>
