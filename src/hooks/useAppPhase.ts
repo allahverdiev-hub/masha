@@ -19,6 +19,7 @@ export function useAppPhase() {
 
   useEffect(() => {
     if (phase === 'memories') {
+      document.documentElement.classList.add('memories-mode')
       document.body.classList.add('memories-mode')
       try {
         sessionStorage.setItem(STORAGE_KEY, 'memories')
@@ -26,6 +27,7 @@ export function useAppPhase() {
         /* ignore */
       }
     } else {
+      document.documentElement.classList.remove('memories-mode')
       document.body.classList.remove('memories-mode')
     }
   }, [phase])

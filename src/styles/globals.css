@@ -39,8 +39,17 @@ body {
 }
 
 body.memories-mode {
-  overflow: auto;
+  overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
+  width: 100%;
+  max-width: 100vw;
+}
+
+html.memories-mode {
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
 }
 
 .safe-top {

@@ -13,13 +13,13 @@ export function HeroSectionView({ section }: { section: HeroSection }) {
 
   return (
     <section ref={ref} className="relative h-[100dvh] w-full overflow-hidden">
-      <motion.div className="absolute inset-0" style={{ y }}>
+      <motion.div className="absolute inset-0 flex items-center justify-center bg-[#1a0a12]" style={{ y }}>
         <img
           src={section.photo}
           alt={section.title}
-          className="h-[120%] w-full object-cover"
+          className="h-full w-full object-contain object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a12] via-[#1a0a12]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a12] via-[#1a0a12]/30 to-transparent" />
       </motion.div>
 
       <motion.div
