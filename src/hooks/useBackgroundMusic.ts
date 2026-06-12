@@ -26,16 +26,20 @@ export function useBackgroundMusic() {
 
     void startMusic()
 
-    const retryOnInteraction = () => {
+    const onReady = () => {
       if (audio.paused) void startMusic()
     }
 
-    window.addEventListener('pointerdown', retryOnInteraction)
-    window.addEventListener('touchstart', retryOnInteraction)
+    window.addEventListener('load', onReady)
+    document.addEventListener('pointerdown', onReady, { passive: true })
+    document.addEventListener('touchstart', onReady, { passive: true })
+    document.addEventListener('click', onReady, { passive: true })
 
     return () => {
-      window.removeEventListener('pointerdown', retryOnInteraction)
-      window.removeEventListener('touchstart', retryOnInteraction)
+      window.removeEventListener('load', onReady)
+      document.removeEventListener('pointerdown', onReady)
+      document.removeEventListener('touchstart', onReady)
+      document.removeEventListener('click', onReady)
       audio.pause()
       audioRef.current = null
     }

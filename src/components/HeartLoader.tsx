@@ -18,6 +18,21 @@ function HeartIcon({ className }: { className?: string }) {
   )
 }
 
+function HeartGlow({
+  color,
+  size = 'h-16 w-16',
+}: {
+  color: string
+  size?: string
+}) {
+  return (
+    <div
+      className={`pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl ${size}`}
+      style={{ background: `radial-gradient(circle, ${color} 0%, transparent 70%)` }}
+    />
+  )
+}
+
 export function HeartLoader({ onComplete }: HeartLoaderProps) {
   useEffect(() => {
     const timer = setTimeout(onComplete, 3200)
@@ -35,7 +50,6 @@ export function HeartLoader({ onComplete }: HeartLoaderProps) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1a0a12]/95 backdrop-blur-md">
       <div className="relative flex h-40 w-full max-w-xs items-center justify-center">
-        {/* Dual loader bars */}
         <motion.div
           className="absolute left-0 h-1 rounded-full gradient-mamba"
           initial={{ width: 0, x: 0 }}
@@ -49,34 +63,40 @@ export function HeartLoader({ onComplete }: HeartLoaderProps) {
           transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
         />
 
-        {/* Left heart */}
         <motion.div
-          className="absolute text-[#ff4d8d]"
+          className="absolute"
           initial={{ x: -140, opacity: 0, scale: 0.6 }}
           animate={{ x: -22, opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: 'easeInOut', delay: 0.15 }}
         >
-          <HeartIcon className="h-14 w-14 drop-shadow-[0_0_12px_rgba(255,77,141,0.8)]" />
+          <div className="relative flex items-center justify-center">
+            <HeartGlow color="rgba(255,77,141,0.55)" />
+            <HeartIcon className="relative h-14 w-14 text-[#ff4d8d]" />
+          </div>
         </motion.div>
 
-        {/* Right heart */}
         <motion.div
-          className="absolute text-[#ff6b35]"
+          className="absolute"
           initial={{ x: 140, opacity: 0, scale: 0.6 }}
           animate={{ x: 22, opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: 'easeInOut', delay: 0.15 }}
         >
-          <HeartIcon className="h-14 w-14 drop-shadow-[0_0_12px_rgba(255,107,53,0.8)]" />
+          <div className="relative flex items-center justify-center">
+            <HeartGlow color="rgba(255,107,53,0.55)" />
+            <HeartIcon className="relative h-14 w-14 text-[#ff6b35]" />
+          </div>
         </motion.div>
 
-        {/* Merge flash */}
         <motion.div
-          className="absolute text-[#ffb347]"
+          className="absolute"
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: [0, 1.4, 1], opacity: [0, 1, 0.9] }}
+          animate={{ scale: [0, 1.35, 1], opacity: [0, 1, 0.9] }}
           transition={{ duration: 0.6, delay: 1.3, ease: 'easeOut' }}
         >
-          <HeartIcon className="h-20 w-20 drop-shadow-[0_0_24px_rgba(255,179,71,0.9)]" />
+          <div className="relative flex items-center justify-center">
+            <HeartGlow color="rgba(255,179,71,0.65)" size="h-24 w-24" />
+            <HeartIcon className="relative h-20 w-20 text-[#ffb347]" />
+          </div>
         </motion.div>
       </div>
 
