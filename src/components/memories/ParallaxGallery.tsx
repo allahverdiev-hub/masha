@@ -54,7 +54,7 @@ function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
           >
             <img
               src={photo.src}
-              alt={photo.caption}
+              alt={photo.caption ?? ''}
               className="aspect-[3/4] w-full object-cover"
               draggable={false}
               decoding="async"
@@ -62,13 +62,15 @@ function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
           </div>
 
-          <div
-            className="mt-3 rounded-xl border border-white/15 bg-[#1a0a12]/90 px-4 py-3 shadow-lg shadow-black/30 backdrop-blur-sm"
-          >
-            <p className="text-sm leading-relaxed text-white/85 sm:text-base">
-              {photo.caption}
-            </p>
-          </div>
+          {photo.caption && (
+            <div
+              className="mt-3 rounded-xl border border-white/15 bg-[#1a0a12]/90 px-4 py-3 shadow-lg shadow-black/30 backdrop-blur-sm"
+            >
+              <p className="text-sm leading-relaxed text-white/85 sm:text-base">
+                {photo.caption}
+              </p>
+            </div>
+          )}
         </motion.div>
       </div>
     </div>

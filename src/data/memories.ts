@@ -22,7 +22,7 @@ export type TimelineSection = {
 
 export type ParallaxPhoto = {
   src: string
-  caption: string
+  caption?: string
 }
 
 export type ParallaxSection = {
@@ -32,12 +32,10 @@ export type ParallaxSection = {
   photos: ParallaxPhoto[]
 }
 
-export type LoveMessageSection = {
-  type: 'loveMessage'
+export type TextParallaxSection = {
+  type: 'textParallax'
   id: string
-  photos: [string, string]
-  paragraphs: string[]
-  highlight: string
+  items: string[]
   closingLine: string
   buttonText: string
 }
@@ -54,7 +52,7 @@ export type MemorySection =
   | HeroSection
   | TimelineSection
   | ParallaxSection
-  | LoveMessageSection
+  | TextParallaxSection
   | FinaleSection
 
 const parallaxCaptions = [
@@ -79,13 +77,27 @@ const parallaxCaptions = [
   'И это тоже Питер пришли в бар)',
   'А тут мы мило сфоткались напротив елки',
   'Отлично отдохнули в Сочи на Красной поляне и у моих родителей.',
-  'А это мы поднялись на гору в Красной поляне.',
+  'А это мы поднялись на гору в Красной поляне. Ты моя самая лучшая чудо-девушка!',
 ]
 
-const parallaxPhotos: ParallaxPhoto[] = parallaxCaptions.map((caption, i) => {
-  const num = String(i + 1).padStart(2, '0')
-  return { src: `/assets/memories/${num}.jpg`, caption }
-})
+const parallaxPhotos: ParallaxPhoto[] = [
+  ...parallaxCaptions.map((caption, i) => {
+    const num = String(i + 1).padStart(2, '0')
+    return { src: `/assets/memories/${num}.jpg`, caption }
+  }),
+  { src: '/assets/memories/apology-1.jpg' },
+  { src: '/assets/memories/apology-2.jpg' },
+]
+
+const loveTextItems = [
+  'Я тебя сильно люблю и мне грустно, что я не был с тобою рядом в важный для тебя день.',
+  'А ещё я понял, что в последнее время сильно зацикливался на работе и своей сложившейся ситуации, позабыв про наши отношения.',
+  'Забыв про сюрпризики тебе и наши совместные ритуалы.',
+  'Извини меня, солнышко.',
+  'Я хочу и дальше продолжать строить активную и здоровую историю нашей жизни вместе.',
+  'А все трудности легко и быстро преодолевать, поддерживая друг друга.',
+  'Очень скучаю и жду тебя дома ❤️😘',
+]
 
 export const memorySections: MemorySection[] = [
   {
@@ -139,17 +151,9 @@ export const memorySections: MemorySection[] = [
     photos: parallaxPhotos,
   },
   {
-    type: 'loveMessage',
-    id: 'loveMessage',
-    photos: ['/assets/memories/apology-1.jpg', '/assets/memories/apology-2.jpg'],
-    highlight: 'Ты моя самая лучшая чудо-девушка!',
-    paragraphs: [
-      'Я тебя сильно люблю и мне грустно, что я не был с тобою рядом в важный для тебя день.',
-      'А ещё я понял, что в последнее время сильно зацикливался на работе и своей сложившейся ситуации, позабыв про наши отношения. Забыв про сюрпризики тебе и наши совместные ритуалы.',
-      'Извини меня, солнышко.',
-      'Я хочу и дальше продолжать строить активную и здоровую историю нашей жизни вместе. А все трудности легко и быстро преодолевать, поддерживая друг друга.',
-      'Очень скучаю и жду тебя дома ❤️😘',
-    ],
+    type: 'textParallax',
+    id: 'loveText',
+    items: loveTextItems,
     closingLine: 'Надеюсь, что и ты тоже 🥰 Если да, нажми на кнопочку ниже.',
     buttonText: 'Давай продолжать строить историю вместе',
   },

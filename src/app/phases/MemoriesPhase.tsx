@@ -2,7 +2,7 @@ import { memorySections } from '../../data/memories'
 import { HeroSectionView } from '../../components/memories/HeroSection'
 import { StoryTimeline } from '../../components/memories/StoryTimeline'
 import { ParallaxGallery } from '../../components/memories/ParallaxGallery'
-import { LoveMessageSection } from '../../components/memories/LoveMessageSection'
+import { TextParallax } from '../../components/memories/TextParallax'
 import { FinaleSection } from '../../components/memories/FinaleSection'
 
 export function MemoriesPhase() {
@@ -16,8 +16,8 @@ export function MemoriesPhase() {
             return <StoryTimeline key={section.id} section={section} />
           case 'parallax':
             return <ParallaxGallery key={section.id} section={section} />
-          case 'loveMessage':
-            return <LoveMessageSection key={section.id} section={section} />
+          case 'textParallax':
+            return <TextParallax key={section.id} section={section} />
           case 'finale':
             return <FinaleSection key={section.id} section={section} />
           default:
