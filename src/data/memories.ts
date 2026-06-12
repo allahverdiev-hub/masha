@@ -27,12 +27,6 @@ export type GallerySection = {
   photos: { src: string; caption?: string }[]
 }
 
-export type QuoteSection = {
-  type: 'quote'
-  id: string
-  quotes: { text: string; author?: string }[]
-}
-
 export type FinaleSection = {
   type: 'finale'
   id: string
@@ -45,8 +39,12 @@ export type MemorySection =
   | HeroSection
   | TimelineSection
   | GallerySection
-  | QuoteSection
   | FinaleSection
+
+const galleryPhotos = Array.from({ length: 22 }, (_, i) => {
+  const num = String(i + 1).padStart(2, '0')
+  return { src: `/assets/memories/${num}.jpg` }
+})
 
 export const memorySections: MemorySection[] = [
   {
@@ -55,7 +53,7 @@ export const memorySections: MemorySection[] = [
     title: 'История, которая началась с одного свайпа',
     subtitle: 'Мы с тобой',
     date: 'День, когда мы познакомились',
-    photo: 'https://picsum.photos/seed/ourlove/800/1200',
+    photo: '/assets/memories/hero.jpg',
   },
   {
     type: 'timeline',
@@ -92,29 +90,7 @@ export const memorySections: MemorySection[] = [
     type: 'gallery',
     id: 'gallery',
     title: 'Наши моменты',
-    photos: [
-      { src: 'https://picsum.photos/seed/mem1/600/800', caption: 'Момент 1' },
-      { src: 'https://picsum.photos/seed/mem2/600/800', caption: 'Момент 2' },
-      { src: 'https://picsum.photos/seed/mem3/600/800', caption: 'Момент 3' },
-      { src: 'https://picsum.photos/seed/mem4/600/800', caption: 'Момент 4' },
-      { src: 'https://picsum.photos/seed/mem5/600/800', caption: 'Момент 5' },
-      { src: 'https://picsum.photos/seed/mem6/600/800', caption: 'Момент 6' },
-    ],
-  },
-  {
-    type: 'quote',
-    id: 'quotes',
-    quotes: [
-      {
-        text: 'С тобой даже обычный день становится особенным.',
-      },
-      {
-        text: 'Ты — лучший сюрприз, который случился со мной.',
-      },
-      {
-        text: 'Люблю тебя больше, чем слова могут передать.',
-      },
-    ],
+    photos: galleryPhotos,
   },
   {
     type: 'finale',
