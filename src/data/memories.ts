@@ -20,11 +20,16 @@ export type TimelineSection = {
   items: TimelineItem[]
 }
 
+export type ParallaxPhoto = {
+  src: string
+  caption: string
+}
+
 export type ParallaxSection = {
   type: 'parallax'
   id: string
   title: string
-  photos: { src: string }[]
+  photos: ParallaxPhoto[]
 }
 
 export type LoveMessageSection = {
@@ -52,9 +57,34 @@ export type MemorySection =
   | LoveMessageSection
   | FinaleSection
 
-const parallaxPhotos = Array.from({ length: 22 }, (_, i) => {
+const parallaxCaptions = [
+  'Это мы с масочками лежим довольные.',
+  'А это мы в кертис впервые пришли компанией.',
+  'Это мы тоже в кертис любим друг друга.',
+  'А это наш первый новый год совместный, мы тогда шикарный стол накрыли)',
+  'А это мы в медузу пришли)',
+  'Ой, а тут наш первый курорт горнолыжный)))',
+  'А это мы в бар пришли)',
+  'А тут мы впервые пришли в клуб.',
+  'Такс, это снова в баре любим друг друга :*/',
+  'А тут мы впервые посетили заведение Партизан. Было весело в этот день)',
+  'Тут мы на набережной прогуливаемся мило после Партизана)',
+  'А это мы пришли в Ред, отведать техаской кухни.',
+  'А тут мы прогуливаемся в парке.',
+  'Это без комментариев просто :D',
+  'Снова прогуливаемся)',
+  'А это наша первая поездка в Дагестан. Ох уж эти страшные, но красивые виды)',
+  'Такс, а тут мы в Питере в 10D кинотеатре.',
+  'И это мы тоже в Питере)',
+  'И это тоже Питер пришли в бар)',
+  'А тут мы мило сфоткались напротив елки',
+  'Отлично отдохнули в Сочи на Красной поляне и у моих родителей.',
+  'А это мы поднялись на гору в Красной поляне.',
+]
+
+const parallaxPhotos: ParallaxPhoto[] = parallaxCaptions.map((caption, i) => {
   const num = String(i + 1).padStart(2, '0')
-  return { src: `/assets/memories/${num}.jpg` }
+  return { src: `/assets/memories/${num}.jpg`, caption }
 })
 
 export const memorySections: MemorySection[] = [

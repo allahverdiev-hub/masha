@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import type { ParallaxSection } from '../../data/memories'
+import type { ParallaxPhoto, ParallaxSection } from '../../data/memories'
 import {
   PARALLAX_SLIDE_HEIGHT_VH,
   useParallaxSlide,
@@ -17,13 +17,13 @@ export function ParallaxGallery({ section }: { section: ParallaxSection }) {
       </div>
 
       {photos.map((photo, index) => (
-        <PhotoSlide key={photo.src} src={photo.src} index={index} />
+        <PhotoSlide key={photo.src} photo={photo} index={index} />
       ))}
     </section>
   )
 }
 
-function PhotoSlide({ src, index }: { src: string; index: number }) {
+function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
   const { ref, y, scale, opacity, rotate } = useParallaxSlide(index)
 
   return (
@@ -37,24 +37,38 @@ function PhotoSlide({ src, index }: { src: string; index: number }) {
         style={{ zIndex: index + 1 }}
       >
         <motion.div
-          className="relative w-full max-w-sm overflow-hidden rounded-2xl will-change-transform shadow-2xl shadow-black/50"
+          className="relative w-full max-w-sm will-change-transform"
           style={{
             y,
             scale,
             opacity,
             rotate,
-            boxShadow:
-              '0 24px 48px rgba(0,0,0,0.4), 0 0 32px rgba(255,77,141,0.2)',
           }}
         >
-          <img
-            src={src}
-            alt=""
-            className="aspect-[3/4] w-full object-cover"
-            draggable={false}
-            decoding="async"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+          <div
+            className="overflow-hidden rounded-2xl shadow-2xl shadow-black/50"
+            style={{
+              boxShadow:
+                '0 24px 48px rgba(0,0,0,0.4), 0 0 32px rgba(255,77,141,0.2)',
+            }}
+          >
+            <img
+              src={photo.src}
+              alt={photo.caption}
+              className="aspect-[3/4] w-full object-cover"
+              draggable={false}
+              decoding="async"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+          </div>
+
+          <div
+            className="mt-3 rounded-xl border border-white/15 bg-[#1a0a12]/90 px-4 py-3 shadow-lg shadow-black/30 backdrop-blur-sm"
+          >
+            <p className="text-sm leading-relaxed text-white/85 sm:text-base">
+              {photo.caption}
+            </p>
+          </div>
         </motion.div>
       </div>
     </div>
