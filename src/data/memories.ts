@@ -34,11 +34,17 @@ export type ParallaxSection = {
   photos: ParallaxPhoto[]
 }
 
+export type TextParallaxItem = {
+  text: string
+  emoji?: string
+}
+
 export type TextParallaxSection = {
   type: 'textParallax'
   id: string
-  items: string[]
+  items: TextParallaxItem[]
   closingLine: string
+  closingEmoji?: string
   buttonText: string
 }
 
@@ -92,18 +98,33 @@ const parallaxPhotos: ParallaxPhoto[] = parallaxEntries.map((entry, i) => {
 })
 
 const apologyPhotos: ParallaxPhoto[] = [
-  { src: '/assets/memories/apology-1.jpg', emoji: '🥺' },
-  { src: '/assets/memories/apology-2.jpg', emoji: '💕' },
+  { src: '/assets/memories/apology-1.jpg' },
+  { src: '/assets/memories/apology-2.jpg' },
 ]
 
-const loveTextItems = [
-  'Я тебя сильно люблю и мне грустно, что я не был с тобою рядом в важный для тебя день.',
-  'А ещё я понял, что в последнее время сильно зацикливался на работе и своей сложившейся ситуации, позабыв про наши отношения.',
-  'Забыв про сюрпризики тебе и наши совместные ритуалы.',
-  'Извини меня, солнышко.',
-  'Я хочу и дальше продолжать строить активную и здоровую историю нашей жизни вместе.',
-  'А все трудности легко и быстро преодолевать, поддерживая друг друга.',
-  'Очень скучаю и жду тебя дома ❤️😘',
+const loveTextItems: TextParallaxItem[] = [
+  {
+    emoji: '💔',
+    text: 'Я тебя сильно люблю и мне грустно, что я не был с тобою рядом в важный для тебя день.',
+  },
+  {
+    emoji: '💼',
+    text: 'А ещё я понял, что в последнее время сильно зацикливался на работе и своей сложившейся ситуации, позабыв про наши отношения.',
+  },
+  {
+    emoji: '🎁',
+    text: 'Забыв про сюрпризики тебе и наши совместные ритуалы.',
+  },
+  { emoji: '🥺', text: 'Извини меня, солнышко.' },
+  {
+    emoji: '🏡',
+    text: 'Я хочу и дальше продолжать строить активную и здоровую историю нашей жизни вместе.',
+  },
+  {
+    emoji: '🤝',
+    text: 'А все трудности легко и быстро преодолевать, поддерживая друг друга.',
+  },
+  { emoji: '🏠', text: 'Очень скучаю и жду тебя дома ❤️😘' },
 ]
 
 export const memorySections: MemorySection[] = [
@@ -168,6 +189,7 @@ export const memorySections: MemorySection[] = [
     type: 'textParallax',
     id: 'loveText',
     items: loveTextItems,
+    closingEmoji: '💕',
     closingLine: 'Надеюсь, что и ты тоже 🥰 Если да, нажми на кнопочку ниже.',
     buttonText: 'Давай продолжать строить историю вместе',
   },

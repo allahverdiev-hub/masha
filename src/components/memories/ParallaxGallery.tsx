@@ -70,22 +70,18 @@ function PhotoSlide({ photo, index }: { photo: ParallaxPhoto; index: number }) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
           </div>
 
-          {(photo.emoji || photo.caption) && (
-            <div className="mt-3">
+          {photo.caption && (
+            <div
+              className="mt-3 rounded-xl border border-white/15 bg-[#1a0a12]/90 px-4 py-3 shadow-lg shadow-black/30 backdrop-blur-sm"
+            >
               {photo.emoji && (
-                <p className="mb-2 text-center text-2xl sm:text-3xl" aria-hidden>
+                <p className="mb-2 text-center text-xl sm:text-2xl" aria-hidden>
                   {photo.emoji}
                 </p>
               )}
-              {photo.caption && (
-                <div
-                  className="rounded-xl border border-white/15 bg-[#1a0a12]/90 px-4 py-3 shadow-lg shadow-black/30 backdrop-blur-sm"
-                >
-                  <p className="text-sm leading-relaxed text-white/85 sm:text-base">
-                    {photo.caption}
-                  </p>
-                </div>
-              )}
+              <p className="text-sm leading-relaxed text-white/85 sm:text-base">
+                {photo.caption}
+              </p>
             </div>
           )}
         </motion.div>

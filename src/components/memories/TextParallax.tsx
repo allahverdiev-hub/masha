@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import type { TextParallaxSection } from '../../data/memories'
+import type { TextParallaxItem, TextParallaxSection } from '../../data/memories'
 import { getTelegramUrl } from '../../data/siteConfig'
 import {
   PARALLAX_SLIDE_HEIGHT_VH,
@@ -10,19 +10,29 @@ import { highlightKeywords } from '../../utils/highlightKeywords'
 export function TextParallax({ section }: { section: TextParallaxSection }) {
   return (
     <section className="relative">
-      {section.items.map((text, index) => (
-        <TextSlide key={index} text={text} index={index} />
+      {section.items.map((item, index) => (
+        <TextSlide key={index} item={item} index={index} />
       ))}
       <CtaSlide
         index={section.items.length}
         closingLine={section.closingLine}
+        closingEmoji={section.closingEmoji}
         buttonText={section.buttonText}
       />
     </section>
   )
 }
 
-function TextSlide({ text, index }: { text: string; index: number }) {
+function PlaqueEmoji({ emoji }: { emoji?: string }) {
+  if (!emoji) return null
+  return (
+    <p className="mb-3 text-center text-xl sm:text-2xl" aria-hidden>
+      {emoji}
+    </p>
+  )
+}
+
+function TextSlide({ item, index }: { item: TextParallaxItem; index: number }) {
   const { ref, y, scale, opacity, rotate } = useParallaxSlide(index)
 
   return (
@@ -47,8 +57,9 @@ function TextSlide({ text, index }: { text: string; index: number }) {
             }}
           >
             <div className="rounded-[14px] bg-[#1a0a12]/95 px-6 py-8 backdrop-blur-sm">
+              <PlaqueEmoji emoji={item.emoji} />
               <p className="text-center text-base leading-relaxed text-white/85 sm:text-lg">
-                {highlightKeywords(text)}
+                {highlightKeywords(item.text)}
               </p>
             </div>
           </div>
@@ -61,10 +72,12 @@ function TextSlide({ text, index }: { text: string; index: number }) {
 function CtaSlide({
   index,
   closingLine,
+  closingEmoji,
   buttonText,
 }: {
   index: number
   closingLine: string
+  closingEmoji?: string
   buttonText: string
 }) {
   const { ref, y, scale, opacity, rotate } = useParallaxSlide(index)
@@ -91,6 +104,7 @@ function CtaSlide({
             }}
           >
             <div className="rounded-[14px] bg-[#2a2a2e] px-6 py-8 backdrop-blur-sm">
+              <PlaqueEmoji emoji={closingEmoji} />
               <p className="text-center text-lg leading-relaxed text-white/90">
                 {highlightKeywords(closingLine)}
               </p>
